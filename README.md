@@ -1,2 +1,2 @@
-# supreme-sniffle
-Random scripts except this is like a changed
+# LC-MS/MS-tools
+Tools for handling data from and to be used by Ms-Dial and Ms-Finder
