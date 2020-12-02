@@ -51,10 +51,8 @@ def createmsts(df, workingfolder):
     else:
         print("Files created")
 
-def mergeSheets(metadata, cnumber, dfs):
-    merged = pd.concat(dfs, axis=1, sort=False)
+def mergeSheets(metadata, cnumber, merged):
     header = openpyxl.Workbook()    
-    
     for r in range(1, metadata.active.max_row+1):
         for c in range(1, metadata.active.max_column+1):
             header.active.cell(row = r, column = c, value = metadata.active.cell(r,c).value)
