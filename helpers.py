@@ -5,9 +5,12 @@ import openpyxl
 from openpyxl.utils.dataframe import dataframe_to_rows
 
 def getExcel(import_file_path):
+    wb = openpyxl.load_workbook(filename = import_file_path, read_only=True)
+    sheet = wb.worksheets[0]
+    crn = getCorners(sheet)
     try:
         df = pd.DataFrame()
-        df = pd.read_excel (import_file_path, header = 6, usecols = "A:DI")
+        df = pd.read_excel (import_file_path, header = 6, usecols = range(0, crn[1]))
         df.rename(columns=lambda x: x.replace(".", "_"), inplace = True)
         df = df.loc[df['MS_MS_spectrum'].notnull()]
         #df = df.loc[df['Flag'].isnull()]
@@ -73,7 +76,7 @@ def getDataExcel(path, sheet):
         raise
     return df
 
-def getExcel(path, sheet):
+def getTgtExcel(path, sheet):
     try:
         #import_file_path = os.path.join(workingfolder, filename)
         crn = getCorners(sheet)
