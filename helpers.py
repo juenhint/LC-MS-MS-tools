@@ -20,39 +20,6 @@ def getExcel(import_file_path):
     else:
         print(df.columns)
         print(df.shape)
-        
-def createmsts(df, workingfolder):
-    export_path = os.path.join(workingfolder, "MAT")
-    if (not os.path.isdir(export_path)): 
-        os.mkdir(export_path)
-    try:
-        for row in df.itertuples(index=False, name="metabo"):
-            name = getattr(row, 'Feature_ID')
-            f = open(f"{export_path}\\{name}.mat", "w")
-            f.write(f"NAME: {name}\n")
-            f.write(f"PRECURSORMZ: {getattr(row, 'Average_Mz')}\n")
-            f.write(f"PRECURSORTYPE: {getattr(row, 'Adduct_type')}\n")
-            f.write(f"IONMODE: {getattr(row, 'Ion_type')}\n")
-            f.write("MSTYPE: MS1\n")
-            ms1 = str(getattr(row, 'MS1_isotopic_spectrum'))
-            ms = ms1.replace(":", "\t")
-            m = ms.split(" ")
-            f.write(f"Num Peaks: {len(m)}\n")
-            for peak in m:
-                f.write(f"{peak}\n")
-            msms = str(getattr(row, 'MS_MS_spectrum'))
-            if (msms != "nan"):
-                msm = msms.replace(":", "\t")
-                mm = msm.split(" ")
-                f.write("MSTYPE: MS2\n")
-                f.write(f"Num Peaks: {len(mm)}\n")
-                for peak in mm:
-                    f.write(f"{peak}\n")
-            f.close()
-    except:
-        raise
-    else:
-        print("Files created")
 
 def mergeSheets(metadata, cnumber, merged):
     header = openpyxl.Workbook()    
