@@ -4,9 +4,9 @@ import os
 import openpyxl
 from openpyxl.utils.dataframe import dataframe_to_rows
 
-def getExcel(import_file_path):
+def getExcel(import_file_path, sheet=0):
     wb = openpyxl.load_workbook(filename = import_file_path, read_only=True)
-    sheet = wb.worksheets[0]
+    sheet = wb.worksheets[sheet]
     crn = getCorners(sheet)
     try:
         df = pd.DataFrame()
