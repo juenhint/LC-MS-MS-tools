@@ -4,7 +4,7 @@ import os
 import openpyxl
 from openpyxl.utils.dataframe import dataframe_to_rows
 
-def getExcel(import_file_path, sheet=0):
+def getExcel(import_file_path, sheet=0, filterms2=True):
     wb = openpyxl.load_workbook(filename = import_file_path, read_only=True)
     sheet = wb.worksheets[sheet]
     crn = getCorners(sheet)
@@ -12,7 +12,8 @@ def getExcel(import_file_path, sheet=0):
         df = pd.DataFrame()
         df = pd.read_excel (import_file_path, header = 6, usecols = range(0, crn[1]))
         df.rename(columns=lambda x: x.replace(".", "_"), inplace = True)
-        df = df.loc[df['MS_MS_spectrum'].notnull()]
+        if (filterms2): 
+            df = df.loc[df['MS_MS_spectrum'].notnull()]
         #df = df.loc[df['Flag'].isnull()]
         return df
     except:
