@@ -1,4 +1,4 @@
 # LC-MS/MS-tools
 
-Tools for handling data from and to be used by MS-Dial and MS-Finder
-How do you doooooo
+Tools for handling data from and to be used by MS-Dial and MS-Finder written in Jupyter notebooks. 
+Documentation TBA.
